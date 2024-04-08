@@ -1,7 +1,7 @@
-import { configreStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import modeReducer from "store/modeSlice";
 
-const store = configreStore({
+const store = configureStore({
   reducer: {
     mode: modeReducer,
   },
