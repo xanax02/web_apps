@@ -12,6 +12,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import Divider from "@mui/material/Divider";
 import {
   SettingsOutlined,
   ChevronLeft,
@@ -195,7 +196,7 @@ export default function Sidebar({
             </List>
           </Box>
           <Box position={"absolute"} bottom={"2rem"}>
-            {/* <Devider /> */}
+            <Divider />
             <FlexBetween
               textTransform={"none"}
               gap={"1rem"}
@@ -211,6 +212,13 @@ export default function Sidebar({
                 sx={{ objectFit: "cover" }}
               />
               <Box textAlign={"left"}>
+                <Typography
+                  fontWeight={"bold"}
+                  fontSize={"0.9rem"}
+                  sx={{ color: theme.palette.secondary[100] }}
+                >
+                  {user.name}
+                </Typography>
                 <Typography
                   fontSize={"0.8rem"}
                   sx={{ color: theme.palette.secondary[200] }}
