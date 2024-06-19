@@ -12,8 +12,8 @@ export const getProducts = async (req, res) => {
         });
 
         return {
-          // ...product._doc,
-          ...product,
+          ...product._doc,
+          // ...product,
           stat,
         };
       })
