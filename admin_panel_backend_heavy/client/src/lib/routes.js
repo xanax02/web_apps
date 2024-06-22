@@ -9,11 +9,11 @@ export const router = createBrowserRouter([
     loader: () => redirect("/dashboard"),
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: <Layout />,
     children: [
       {
-        path: "",
+        path: "/dashboard",
         element: <Dashboard />,
       },
       {
