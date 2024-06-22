@@ -1,6 +1,7 @@
 import Product from "../models/Product.js";
 import User from "../models/User.js";
 import ProductStat from "../models/ProductStat.js";
+import Transaction from "../models/Transaction.js";
 
 export const getProducts = async (req, res) => {
   try {
@@ -31,6 +32,45 @@ export const getCustomers = async (req, res) => {
     const customers = await User.find({ role: "user" }).select("-password");
 
     res.status(200).json(customers);
+  } catch (err) {
+    res.status(402).json({ message: err.message });
+  }
+};
+
+export const getTransactions = async (req, res) => {
+  try {
+    //sort should be { "field": "userId", "sort", "desc" } from frontend
+    const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
+
+    //formatted sort should look like { userId: -1 }
+    const generateSort = () => {
+      const sortParsed = JSON.parse(sort);
+      const sortFormated = {
+        [sortParsed.field]: sortParsed.sort === "asc" ? 1 : -1,
+      };
+      return sortFormated;
+    };
+
+    const sortFormatted = Boolean(sort) ? generateSort() : {};
+
+    const transactions = await Transaction.find({
+      $or: [
+        { cost: { $regex: new RegExp(search, "i") } },
+        { userId: { $regex: new RegExp(search, "i") } },
+      ],
+    })
+      .sort(sortFormatted)
+      .skip(page * pageSize)
+      .limit(pageSize);
+
+    const total = await Transaction.countDocuments({
+      name: { $regex: search, $options: "i" },
+    });
+
+    res.status(200).json({
+      transactions,
+      total,
+    });
   } catch (err) {
     res.status(402).json({ message: err.message });
   }
