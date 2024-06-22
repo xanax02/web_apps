@@ -2,6 +2,7 @@ import { createBrowserRouter, redirect } from "react-router-dom";
 import Layout from "pages/layout";
 import Dashboard from "pages/dashboard";
 import Products from "pages/products";
+import Customers from "pages/customers";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ export const router = createBrowserRouter([
       {
         path: "products",
         element: <Products />,
+      },
+      {
+        path: "customers",
+        element: <Customers />,
       },
     ],
   },
