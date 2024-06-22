@@ -3,6 +3,7 @@ import Layout from "pages/layout";
 import Dashboard from "pages/dashboard";
 import Products from "pages/products";
 import Customers from "pages/customers";
+import Transactions from "pages/transactions";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: "customers",
         element: <Customers />,
+      },
+      {
+        path: "transactions",
+        element: <Transactions />,
       },
     ],
   },

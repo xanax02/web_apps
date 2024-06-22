@@ -55,7 +55,7 @@ export const getTransactions = async (req, res) => {
 
     const transactions = await Transaction.find({
       $or: [
-        { cost: { $regex: new RegExp(search, "i") } },
+        { cost: { $regex: new RegExp(search, "i") } }, // i represents case insensitive
         { userId: { $regex: new RegExp(search, "i") } },
       ],
     })
@@ -63,9 +63,7 @@ export const getTransactions = async (req, res) => {
       .skip(page * pageSize)
       .limit(pageSize);
 
-    const total = await Transaction.countDocuments({
-      name: { $regex: search, $options: "i" },
-    });
+    const total = await Transaction.countDocuments();
 
     res.status(200).json({
       transactions,
