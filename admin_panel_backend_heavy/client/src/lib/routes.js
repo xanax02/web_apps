@@ -4,6 +4,7 @@ import Dashboard from "pages/dashboard";
 import Products from "pages/products";
 import Customers from "pages/customers";
 import Transactions from "pages/transactions";
+import Geography from "pages/geography";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
       {
         path: "transactions",
         element: <Transactions />,
+      },
+      {
+        path: "geography",
+        element: <Geography />,
       },
     ],
   },
