@@ -5,6 +5,7 @@ import Products from "pages/products";
 import Customers from "pages/customers";
 import Transactions from "pages/transactions";
 import Geography from "pages/geography";
+import Overview from "pages/overview";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
       {
         path: "geography",
         element: <Geography />,
+      },
+      {
+        path: "sales",
+        element: <Overview />,
       },
     ],
   },
