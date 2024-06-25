@@ -9,7 +9,7 @@ import morgan from "morgan";
 import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
-import salesRoutes from "./routes/client.js";
+import salesRoutes from "./routes/sales.js";
 
 // data IMPORTS
 // import User from "./models/User.js";
@@ -19,8 +19,8 @@ import salesRoutes from "./routes/client.js";
 // import { dataProduct, dataProductStat } from "./data/index.js";
 // import Transaction from "./models/Transaction.js";
 // import { dataTransaction } from "./data/index.js";
-import OverallStat from "./models/OverallStat.js";
-import { dataOverallStat } from "./data/index.js";
+// import OverallStat from "./models/OverallStat.js";
+// import { dataOverallStat } from "./data/index.js";
 
 /* CONFIGURATIONS */
 dotenv.config();
