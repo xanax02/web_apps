@@ -83,7 +83,7 @@ const Geography = () => {
                     {
                       on: "hover",
                       style: {
-                        itemTextColor: theme.palette.background.alt,
+                        itemTextColor: "#fff",
                         itemOpacity: 1,
                       },
                     },

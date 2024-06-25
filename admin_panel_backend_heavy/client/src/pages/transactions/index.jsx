@@ -107,6 +107,7 @@ const Transactions = () => {
             }}
           />
         )}
+        {isLoading && <p>Loading...</p>}
       </Box>
     </Box>
   );
