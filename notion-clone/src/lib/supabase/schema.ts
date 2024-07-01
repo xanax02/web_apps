@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
-export const workspace = pgTable("workspace", {
+export const workspaces = pgTable("workspaces", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
   createdAt: timestamp("createdAt", {
     withTimezone: true,
@@ -13,4 +13,20 @@ export const workspace = pgTable("workspace", {
   inTrash: text("in_trash"),
   logo: text("logo"),
   bannerUrl: text("baner_url"),
+});
+
+export const folders = pgTable("folders", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  createdAt: timestamp("createdAt", {
+    withTimezone: true,
+    mode: "string",
+  }),
+  title: text("title").notNull(),
+  iconId: text("icon_id").notNull(),
+  data: text("data"),
+  inTrash: text("in_trash"),
+  bannerUrl: text("baner_url"),
+  workspaceId: uuid("workspace_id").references(() => workspaces.id, {
+    onDelete: "cascade",
+  }),
 });
