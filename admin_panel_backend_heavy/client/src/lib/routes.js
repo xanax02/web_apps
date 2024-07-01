@@ -6,6 +6,7 @@ import Customers from "pages/customers";
 import Transactions from "pages/transactions";
 import Geography from "pages/geography";
 import Overview from "pages/overview";
+import Daily from "pages/daily";
 
 export const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
       {
         path: "/overview",
         element: <Overview />,
+      },
+      {
+        path: "/daily",
+        element: <Daily />,
       },
     ],
   },
