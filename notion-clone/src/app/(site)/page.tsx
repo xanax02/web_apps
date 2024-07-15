@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import TitleSection from "@/components/landing-page/title-section";
 import Banner from "../../../public/appBanner.png";
+import { CLIENTS } from "@/lib/constants";
 
 const HomePage = () => {
   return (
@@ -47,14 +48,36 @@ const HomePage = () => {
           before:to-transparent
           before:from-background
           before:bg-gradient-to-r
-          before:right-0
+          before:left-0
           before:bottom-0
           before:top-0
           before:w-20
           before:z-10
           before:absolute
         "
-        ></div>
+        >
+          {/* {[...Array(2)].map((arr) => ( */}
+          <div className="flex flex-nowrap ">
+            {CLIENTS.map((client) => (
+              <div
+                key={client.alt}
+                className="relative w-[200px] m-20 shrink-0 flex items-center"
+              >
+                <Image
+                  src={client.logo}
+                  alt={client.alt}
+                  width={200}
+                  quality={100}
+                  className="object-cover max-w-none"
+                />
+              </div>
+            ))}
+          </div>
+          {/* ))} */}
+        </div>
+      </section>
+      <section className="px-4 sm:px-6 flex justify-center items-center flex-col relative">
+        <div className="w-[30%]"></div>
       </section>
     </>
   );
