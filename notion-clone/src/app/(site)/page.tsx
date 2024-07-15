@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import TitleSection from "@/components/landing-page/title-section";
 import Banner from "../../../public/appBanner.png";
+import Cal from "../../../public/cal.png";
 import { CLIENTS } from "@/lib/constants";
 
 const HomePage = () => {
@@ -57,7 +58,7 @@ const HomePage = () => {
         "
         >
           {/* {[...Array(2)].map((arr) => ( */}
-          <div className="flex flex-nowrap ">
+          <div className="flex flex-nowrap animate-slide">
             {CLIENTS.map((client) => (
               <div
                 key={client.alt}
@@ -77,7 +78,58 @@ const HomePage = () => {
         </div>
       </section>
       <section className="px-4 sm:px-6 flex justify-center items-center flex-col relative">
-        <div className="w-[30%]"></div>
+        <div className="w-[30%] h-32 absolute rounded-full bg-brand-primaryPurple blur-[120px] -z-10 top-22" />
+        <TitleSection
+          title="Keep track of your meetings all in one place"
+          subheading="Capture your ideas, thoughts, and meeting notes in a structured and organized manner."
+          pill="Features"
+        />
+        <div
+          className="mt-10
+          max-w-[450px]
+          flex
+          justify-center
+          items-center
+          relative
+          sm:ml-0
+          rounded-2xl
+          border-8
+          border-washed-purple-300 
+          border-opacity-10
+        "
+        >
+          <Image src={Cal} alt="Banner" className="rounded-2xl" />
+        </div>
+      </section>
+      <section className="relative">
+        <div
+          className="w-full
+          blur-[120px]
+          rounded-full
+          h-32
+          absolute
+          bg-brand-primaryPurple/50
+          -z-100
+          top-56
+        "
+        />
+        <div
+          className="mt-20
+          px-4
+          sm:px-6 
+          flex
+          flex-col
+          overflow-x-hidden
+          overflow-visible
+        "
+        >
+          <TitleSection
+            title="Trusted by all"
+            subheading="Join thousands of satisfied users who rely on our platform for their 
+            personal and professional productivity needs."
+            pill="Testimonials"
+          />
+        </div>
       </section>
     </>
   );
