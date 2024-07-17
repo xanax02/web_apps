@@ -9,6 +9,7 @@ import { CLIENTS, USERS } from "@/lib/constants";
 import { randomUUID } from "crypto";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
+import CustomCard from "@/components/landing-page/custom-card";
 
 const HomePage = () => {
   return (
@@ -150,7 +151,7 @@ const HomePage = () => {
                 )}
               >
                 {USERS.map((testimonials, index) => {
-                  return <h1>Hello</h1>;
+                  return <CustomCard key={testimonials.name}></CustomCard>;
                 })}
               </div>
             );
