@@ -5,7 +5,10 @@ import { Button } from "@/components/ui/button";
 import TitleSection from "@/components/landing-page/title-section";
 import Banner from "../../../public/appBanner.png";
 import Cal from "../../../public/cal.png";
-import { CLIENTS } from "@/lib/constants";
+import { CLIENTS, USERS } from "@/lib/constants";
+import { randomUUID } from "crypto";
+import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
 
 const HomePage = () => {
   return (
@@ -28,6 +31,7 @@ const HomePage = () => {
           <div className="absolute left-0 right-0 bottom-0 top-[60%] bg-gradient-to-t dark:from-background z-10"></div>
         </div>
       </section>
+      {/* Brands section */}
       <section className="relative">
         <div
           className="overflow-hidden 
@@ -57,26 +61,27 @@ const HomePage = () => {
           before:absolute
         "
         >
-          {/* {[...Array(2)].map((arr) => ( */}
-          <div className="flex flex-nowrap animate-slide">
-            {CLIENTS.map((client) => (
-              <div
-                key={client.alt}
-                className="relative w-[200px] m-20 shrink-0 flex items-center"
-              >
-                <Image
-                  src={client.logo}
-                  alt={client.alt}
-                  width={200}
-                  quality={100}
-                  className="object-cover max-w-none"
-                />
-              </div>
-            ))}
-          </div>
-          {/* ))} */}
+          {[...Array(2)].map((arr) => (
+            <div className="flex flex-nowrap animate-slide">
+              {CLIENTS.map((client) => (
+                <div
+                  key={client.alt}
+                  className="relative w-[200px] m-20 shrink-0 flex items-center"
+                >
+                  <Image
+                    src={client.logo}
+                    alt={client.alt}
+                    width={200}
+                    quality={100}
+                    className="object-cover max-w-none"
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
+      {/* Features Section */}
       <section className="px-4 sm:px-6 flex justify-center items-center flex-col relative">
         <div className="w-[30%] h-32 absolute rounded-full bg-brand-primaryPurple blur-[120px] -z-10 top-22" />
         <TitleSection
@@ -101,6 +106,7 @@ const HomePage = () => {
           <Image src={Cal} alt="Banner" className="rounded-2xl" />
         </div>
       </section>
+      {/* Testimonials section */}
       <section className="relative">
         <div
           className="w-full
@@ -129,6 +135,26 @@ const HomePage = () => {
             personal and professional productivity needs."
             pill="Testimonials"
           />
+          {[...Array(2)].map((arr, index) => {
+            return (
+              <div
+                key={randomUUID()}
+                className={twMerge(
+                  clsx("mt-10 flex flex-nowrap gap-6 self-start", {
+                    "flex-row-reverse": index === 1,
+                    "animate-[slide_250s_linear_infinite]": true,
+                    "animate-[slide_250s_linear_infinite_reverse]": index === 1,
+                    "ml-[100vw]": index === 1,
+                  }),
+                  "hover:paused"
+                )}
+              >
+                {USERS.map((testimonials, index) => {
+                  return <h1>Hello</h1>;
+                })}
+              </div>
+            );
+          })}
         </div>
       </section>
     </>
