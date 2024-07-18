@@ -11,6 +11,7 @@ import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import CustomCard from "@/components/landing-page/custom-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { CardDescription, CardTitle } from "@/components/ui/card";
 
 const HomePage = () => {
   return (
@@ -144,8 +145,8 @@ const HomePage = () => {
                 className={twMerge(
                   clsx("mt-10 flex flex-nowrap gap-6 self-start", {
                     "flex-row-reverse": index === 1,
-                    // "animate-[slide_250s_linear_infinite]": true,
-                    // "animate-[slide_250s_linear_infinite_reverse]": index === 1,
+                    "animate-[slide_250s_linear_infinite]": true,
+                    "animate-[slide_250s_linear_infinite_reverse]": index === 1,
                     "ml-[100vw]": index === 1,
                   }),
                   "hover:paused"
@@ -162,6 +163,14 @@ const HomePage = () => {
                             <AvatarImage src={`/avatars/${index + 1}.png`} />
                             <AvatarFallback>AV</AvatarFallback>
                           </Avatar>
+                          <div>
+                            <CardTitle className="text-foregrond">
+                              {testimonial.name}
+                            </CardTitle>
+                            <CardDescription className="dark:text-washed-purple-800">
+                              {testimonial.name.toLowerCase()}
+                            </CardDescription>
+                          </div>
                         </div>
                       }
                       cardContent={
