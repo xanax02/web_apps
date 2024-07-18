@@ -4,10 +4,19 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "@/lib/types";
-import { Form } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import Link from "next/link";
 import Image from "next/image";
 import Logo from "../../../../public/cypresslogo.svg";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -18,6 +27,8 @@ const LoginPage = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: { email: "", password: "" },
   });
+
+  const isLoading = form.formState.isSubmitting;
 
   const onSubmit = () => {};
 
@@ -39,6 +50,42 @@ const LoginPage = () => {
             cypress.
           </span>
         </Link>
+        <FormDescription
+          className="
+        text-foreground/60"
+        >
+          An all-In-One Collaboration and Productivity Platform
+        </FormDescription>
+        <FormField
+          disabled={isLoading}
+          control={form.control}
+          name="email"
+          render={(field) => (
+            <FormItem>
+              <FormControl>
+                <Input type="email" placeholder="Email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          disabled={isLoading}
+          control={form.control}
+          name="password"
+          render={(field) => (
+            <FormItem>
+              <FormControl>
+                <Input type="password" placeholder="Password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {submitError && <FormMessage>{submitError}</FormMessage>}
+        <Button type="submit" className="w-full p-6" size="lg">
+          Login
+        </Button>
       </form>
     </Form>
   );
