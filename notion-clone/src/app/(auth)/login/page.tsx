@@ -17,6 +17,7 @@ import Image from "next/image";
 import Logo from "../../../../public/cypresslogo.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Loader from "@/components/global/loader";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -84,8 +85,14 @@ const LoginPage = () => {
         />
         {submitError && <FormMessage>{submitError}</FormMessage>}
         <Button type="submit" className="w-full p-6" size="lg">
-          Login
+          {isLoading ? <Loader /> : "Login"}
         </Button>
+        <span className="self-container">
+          Dont have an account?{" "}
+          <Link href="/signup" className="text-primary">
+            Sign Up
+          </Link>
+        </span>
       </form>
     </Form>
   );
