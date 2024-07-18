@@ -10,6 +10,7 @@ import { randomUUID } from "crypto";
 import { twMerge } from "tailwind-merge";
 import clsx from "clsx";
 import CustomCard from "@/components/landing-page/custom-card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const HomePage = () => {
   return (
@@ -143,15 +144,33 @@ const HomePage = () => {
                 className={twMerge(
                   clsx("mt-10 flex flex-nowrap gap-6 self-start", {
                     "flex-row-reverse": index === 1,
-                    "animate-[slide_250s_linear_infinite]": true,
-                    "animate-[slide_250s_linear_infinite_reverse]": index === 1,
+                    // "animate-[slide_250s_linear_infinite]": true,
+                    // "animate-[slide_250s_linear_infinite_reverse]": index === 1,
                     "ml-[100vw]": index === 1,
                   }),
                   "hover:paused"
                 )}
               >
-                {USERS.map((testimonials, index) => {
-                  return <CustomCard key={testimonials.name}></CustomCard>;
+                {USERS.map((testimonial, index) => {
+                  return (
+                    <CustomCard
+                      key={testimonial.name}
+                      className="w-[500px] shrink-0 rounded-xl dark:bg-gradient-to-t dark:from-border dark:to-background"
+                      cardHeader={
+                        <div className="flex items-center gap-4">
+                          <Avatar>
+                            <AvatarImage src={`/avatars/${index + 1}.png`} />
+                            <AvatarFallback>AV</AvatarFallback>
+                          </Avatar>
+                        </div>
+                      }
+                      cardContent={
+                        <p className="dark:text-washed-purple-800">
+                          {testimonial.message}
+                        </p>
+                      }
+                    ></CustomCard>
+                  );
                 })}
               </div>
             );

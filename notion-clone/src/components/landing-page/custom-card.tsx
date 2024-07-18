@@ -18,9 +18,15 @@ const CustomCard: React.FC<CustomCardProps> = ({
 }) => {
   return (
     <Card className={cn("w-[380px]", className)} {...props}>
-      <CardHeader />
-      <CardContent />
-      <CardFooter />
+      <CardHeader>{cardHeader}</CardHeader>
+      <CardContent
+        className="grid
+        gap-4
+      "
+      >
+        {cardContent}
+      </CardContent>
+      <CardFooter>{cardFooter}</CardFooter>
     </Card>
   );
 };
