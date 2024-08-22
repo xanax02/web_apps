@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "@/lib/types";
 import {
@@ -18,6 +18,8 @@ import Logo from "../../../../public/cypresslogo.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/global/Loader";
+import { z } from "zod";
+import { actionLoginUser } from "@/lib/server-actions/authActions";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -31,7 +33,17 @@ const LoginPage = () => {
 
   const isLoading = form.formState.isSubmitting;
 
-  const onSubmit = () => {};
+  const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
+    formData
+  ) => {
+    const { error } = await actionLoginUser(formData);
+    if (error) {
+      form.reset();
+      setSubmitError(error.message);
+    } else {
+      router.replace("/dashboard");
+    }
+  };
 
   return (
     <Form {...form}>
