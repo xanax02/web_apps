@@ -48,7 +48,7 @@ const LoginPage = () => {
             className="font-semibold
           dark:text-white text-4xl first-letter:ml-2"
           >
-            cypress.
+            SyncSpace
           </span>
         </Link>
         <FormDescription
@@ -87,7 +87,7 @@ const LoginPage = () => {
         <Button type="submit" className="w-full p-6" size="lg">
           {isLoading ? <Loader /> : "Login"}
         </Button>
-        <span className="self-container">
+        <span className="self-center">
           Dont have an account?{" "}
           <Link href="/signup" className="text-primary">
             Sign Up
