@@ -209,6 +209,24 @@ const Header = () => {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+      <aside
+        className="flex
+        w-full
+        gap-2
+        justify-end
+      "
+      >
+        <Link href={"/login"}>
+          <Button variant="btn-secondary" className=" p-1 hidden sm:block">
+            Login
+          </Button>
+        </Link>
+        <Link href="/signup">
+          <Button variant="btn-primary" className="whitespace-nowrap">
+            Sign Up
+          </Button>
+        </Link>
+      </aside>
     </header>
   );
 };
