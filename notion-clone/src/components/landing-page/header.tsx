@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import Logo from "../../../public/cypresslogo.svg";
 import {
   NavigationMenu,
@@ -87,7 +87,44 @@ const Header = () => {
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger></NavigationMenuTrigger>
-            <NavigationMenuContent></NavigationMenuContent>
+            <NavigationMenuContent>
+              <ul
+                className="grid
+                gap-3
+                p-6
+                md:w-[400px]
+                ld:w-[500px]
+                lg:grid-cols-[.75fr_1fr]
+                "
+              >
+                <li className="row-span-3">
+                  <span
+                    className="flex h-full w-full select-none
+                  flex-col
+                  justify-end
+                  rounded-md
+                  bg-gradient-to-b
+                  from-muted/50
+                  to-muted
+                  p-6 no-underline
+                  outline-none
+                  focus:shadow-md
+                  "
+                  >
+                    Welcome
+                  </span>
+                </li>
+                <ListItem href="#" title="Introduction">
+                  Re-usable components built using Radix UI and Tailwind CSS.
+                </ListItem>
+                <ListItem href="#" title="Installation">
+                  How to install dependencies and structure your app.
+                </ListItem>
+                <ListItem href="#" title="Typography">
+                  Styles for headings, paragraphs, lists...etc
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
@@ -96,3 +133,36 @@ const Header = () => {
 };
 
 export default Header;
+
+const ListItem = forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink>
+        <a
+          ref={ref}
+          className={cn(
+            "group block select-none space-y-1 font-medium leading-none"
+          )}
+          {...props}
+        >
+          <div className="text-white text-sm font-medium leading-none">
+            {title}
+          </div>
+          <p
+            className="group-hover:text-white/70
+            line-clamp-2
+            text-sm
+            leading-snug
+            text-white/40
+          "
+          >
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
