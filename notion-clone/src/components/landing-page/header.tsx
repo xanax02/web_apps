@@ -78,15 +78,25 @@ const Header = () => {
           dark:text-white
         "
         >
-          cypress.
+          SyncSpace
         </span>
       </Link>
 
       {/* Navigation Items */}
-      <NavigationMenu>
-        <NavigationMenuList>
+      <NavigationMenu className="hidden md:block">
+        <NavigationMenuList className="gap-6">
           <NavigationMenuItem>
-            <NavigationMenuTrigger></NavigationMenuTrigger>
+            <NavigationMenuTrigger
+              onClick={() => setPath("#resources")}
+              className={cn({
+                "dark:text-white": path === "#resources",
+                "dark:text-white/40": path !== "#resources",
+                "font-normal": true,
+                "text-xl": true,
+              })}
+            >
+              Resources
+            </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul
                 className="grid
@@ -125,6 +135,77 @@ const Header = () => {
                 </ListItem>
               </ul>
             </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger
+              onClick={() => {
+                setPath("#pricing");
+              }}
+              className={cn({
+                "dark:text-white": path === "#pricing",
+                "dark:text-white/40": path !== "#pricing",
+                "font-normal": true,
+                "text-xl": true,
+              })}
+            >
+              Pricing
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4">
+                <ListItem title="Pro Plan" href={"#"}>
+                  Unlock full power with collaboration.
+                </ListItem>
+                <ListItem title={"free Plan"} href={"#"}>
+                  Great for teams just starting out.
+                </ListItem>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger
+              onClick={() => setPath("#features")}
+              className={cn({
+                "dark:text-white": path === "#features",
+                "dark:text-white/40": path !== "#features",
+                "font-normal": true,
+                "text-xl": true,
+              })}
+            >
+              Features
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul
+                className="grid w-[400px]
+              gap-3
+              p-4
+              md:w-[500px]
+              lg:grid-cols-2 
+              lg:w-[600px]
+              "
+              >
+                {components.map((component) => (
+                  <ListItem
+                    key={component.title}
+                    title={component.title}
+                    href={component.href}
+                  >
+                    {component.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              className={cn(navigationMenuTriggerStyle(), {
+                "dark:text-white": path === "#testimonials",
+                "dark:text-white/40": path !== "#testimonials",
+                "font-normal": true,
+                "text-xl": true,
+              })}
+            >
+              Testimonial
+            </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
