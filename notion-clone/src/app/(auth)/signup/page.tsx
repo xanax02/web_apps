@@ -20,6 +20,8 @@ import Logo from "../../../../public/cypresslogo.svg";
 import { Input } from "../../../components/ui/input";
 import Loader from "@/components/global/Loader";
 import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { MailCheck } from "lucide-react";
 
 const SignupFormSchema = z
   .object({
@@ -50,7 +52,7 @@ const Signup = () => {
   }, [searchParams]);
 
   const confimationAndErrorStyles = useMemo(() => {
-    clsx("bg-primary", {
+    return clsx("bg-primary", {
       "bg-red-500/10": codeExchangeError,
       "border-red-500/50": codeExchangeError,
       "text-red-700": codeExchangeError,
@@ -159,6 +161,19 @@ const Signup = () => {
           </Link>
         </span>
       </form>
+      {(confirmation || codeExchangeError) && (
+        <>
+          <Alert className={confimationAndErrorStyles}>
+            {!codeExchangeError && <MailCheck className="h-4 w-4" />}
+            <AlertTitle>
+              {codeExchangeError ? "Invalid Link" : "Check you email"}
+            </AlertTitle>
+            <AlertDescription>
+              {codeExchangeError || "An email confirmation has been sent"}
+            </AlertDescription>
+          </Alert>
+        </>
+      )}
     </Form>
   );
 };
