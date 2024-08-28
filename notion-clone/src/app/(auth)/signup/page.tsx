@@ -72,7 +72,7 @@ const Signup = () => {
     password,
   }: z.infer<typeof SignupFormSchema>) => {
     const { error } = await actionSignupUser({ email, password });
-    if (error) {
+    if (error && error.message) {
       setSubmitError(error.message);
       form.reset();
       return;
@@ -86,6 +86,7 @@ const Signup = () => {
         onChange={() => {
           if (submitError) setSubmitError("");
         }}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="w-full sm:justify-center sm:w-[400px] space-y-6 flex flex-col"
       >
         <Link
@@ -167,20 +168,21 @@ const Signup = () => {
             Login
           </Link>
         </span>
+
+        {(confirmation || codeExchangeError) && (
+          <>
+            <Alert className={confimationAndErrorStyles}>
+              {!codeExchangeError && <MailCheck className="h-4 w-4" />}
+              <AlertTitle>
+                {codeExchangeError ? "Invalid Link" : "Check you email"}
+              </AlertTitle>
+              <AlertDescription>
+                {codeExchangeError || "An email confirmation has been sent"}
+              </AlertDescription>
+            </Alert>
+          </>
+        )}
       </form>
-      {(confirmation || codeExchangeError) && (
-        <>
-          <Alert className={confimationAndErrorStyles}>
-            {!codeExchangeError && <MailCheck className="h-4 w-4" />}
-            <AlertTitle>
-              {codeExchangeError ? "Invalid Link" : "Check you email"}
-            </AlertTitle>
-            <AlertDescription>
-              {codeExchangeError || "An email confirmation has been sent"}
-            </AlertDescription>
-          </Alert>
-        </>
-      )}
     </Form>
   );
 };
