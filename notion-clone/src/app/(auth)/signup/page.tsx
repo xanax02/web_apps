@@ -22,6 +22,7 @@ import Loader from "@/components/global/Loader";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { MailCheck } from "lucide-react";
+import { actionSignupUser } from "@/lib/server-actions/authActions";
 
 const SignupFormSchema = z
   .object({
@@ -70,7 +71,13 @@ const Signup = () => {
     email,
     password,
   }: z.infer<typeof SignupFormSchema>) => {
-    // submit server action
+    const { error } = await actionSignupUser({ email, password });
+    if (error) {
+      setSubmitError(error.message);
+      form.reset();
+      return;
+    }
+    setConfirmation(true);
   };
 
   return (
