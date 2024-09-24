@@ -1,26 +1,22 @@
 "use client";
 
 import { supabase } from "@/lib/supabase";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const LoginPage = () => {
+export default function () {
   const [creds, setCreds] = useState<{ email: string; password: string }>({
     email: "",
     password: "",
   });
 
-  const router = useRouter();
-
   const login = async () => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signUp({
         email: creds.email,
         password: creds.password,
       });
 
-      if (data) {
-      }
+      if (data) console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -64,16 +60,14 @@ const LoginPage = () => {
 
       <div>
         <p>
-          don't have a account?{" "}
+          already have an account?{" "}
           <span>
-            <a className="text-violet-300" href="/signup">
-              signup
+            <a className="text-violet-300" href="/login">
+              login
             </a>
           </span>
         </p>
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}
