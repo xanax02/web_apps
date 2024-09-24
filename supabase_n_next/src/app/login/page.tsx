@@ -20,9 +20,11 @@ const LoginPage = () => {
       });
 
       if (data) {
+        console.log(data);
+        router.push("/");
       }
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
     }
   };
 

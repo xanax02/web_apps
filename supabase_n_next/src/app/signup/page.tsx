@@ -9,7 +9,7 @@ export default function () {
     password: "",
   });
 
-  const login = async () => {
+  const signup = async () => {
     try {
       const { data, error } = await supabase.auth.signUp({
         email: creds.email,
@@ -53,9 +53,9 @@ export default function () {
       </div>
       <button
         className="bg-violet-600 px-2 py-1 rounded-md my-2"
-        onClick={login}
+        onClick={signup}
       >
-        Login
+        Signup
       </button>
 
       <div>
