@@ -68,7 +68,7 @@ export const onAuthenticateUser = async () => {
     }
     return { status: 400 };
   } catch (err) {
-    return { status: 500 };
+    return { status: 500, message: err };
   }
 };
 
