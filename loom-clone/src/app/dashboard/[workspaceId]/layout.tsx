@@ -7,6 +7,7 @@ import {
 } from "@/server-actions/workspace";
 import { redirect } from "next/navigation";
 import React from "react";
+import Sidebar from "@/components/global/sidebar";
 
 import {
   QueryClient,
@@ -58,8 +59,13 @@ const Layout = async ({ params, children }: Props) => {
 
   return (
     <HydrationBoundary state={dehydrate(query)}>
-      <div>
-        <div>HELLO</div>
+      <div className="flex h-screen w-screen">
+        <Sidebar activeWorkspaceId={workspaceId} />
+        <div className="w-full pt-28 p-6 overflow-y-scroll overflow-x-hidden">
+          {/* <GlobalHeader workspace={hasAccess.data.workspace} /> */}
+          <h1>Header</h1>
+          <div className="mt-4">{children}</div>
+        </div>
       </div>
     </HydrationBoundary>
   );
