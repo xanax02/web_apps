@@ -18,16 +18,20 @@ import React from "react";
 import Modal from "../modal";
 import { PlusCircle } from "lucide-react";
 import Search from "../search";
+import { useRouter } from "next/router";
 
 type Props = {
   activeWorkspaceId: string;
 };
 
 const Sidbar = ({ activeWorkspaceId }: Props) => {
+  const router = useRouter();
   const { data, isFetched } = useQueryData(["user-workspaces"], getWorkSpaces);
   const { data: workspace } = (data as WorkSpaceProps) ?? {};
 
-  const onChangeActiveWorkspace = () => {};
+  const onChangeActiveWorkspace = (value: string) => {
+    router.push(`/dashboard/${value}`);
+  };
 
   const currentWorkspace = workspace.workspace.find(
     (space) => space.id === activeWorkspaceId
