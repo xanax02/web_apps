@@ -18,9 +18,10 @@ import React from "react";
 import Modal from "../modal";
 import { PlusCircle } from "lucide-react";
 import Search from "../search";
-import { useRouter } from "next/router";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { getNotifications } from "@/server-actions/user";
+import { MENU_ITEMS } from "@/constants";
+import SidebarItem from "./sidebarItem";
 
 type Props = {
   activeWorkspaceId: string;
@@ -36,15 +37,18 @@ const Sidbar = ({ activeWorkspaceId }: Props) => {
     getNotifications
   );
   const { data: workspace } = (data as WorkSpaceProps) ?? {};
-  const { data: count } = notification as NotificationProps;
+  const { data: count } = (notification as NotificationProps) ?? {};
 
   const onChangeActiveWorkspace = (value: string) => {
     router.push(`/dashboard/${value}`);
   };
 
-  const currentWorkspace = workspace.workspace.find(
+  const currentWorkspace = workspace?.workspace?.find(
     (space) => space.id === activeWorkspaceId
   );
+
+  //menuItems
+  const menuItems = MENU_ITEMS(activeWorkspaceId);
 
   return (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden border-r-2 border-r-white/15">
@@ -103,6 +107,28 @@ const Sidbar = ({ activeWorkspaceId }: Props) => {
             <Search workspaceId={activeWorkspaceId} />
           </Modal>
         )}
+      <p className="w-full text-[#9D9D9D] font-bold mt-4">Menu</p>
+      <nav className="w-full">
+        <ul>
+          {menuItems?.map((item) => {
+            return (
+              <SidebarItem
+                href={item.href}
+                icon={item.icon}
+                title={item.title}
+                key={item.title}
+                selected={pathname === item.href}
+                notifications={
+                  (item.title === "Notifications" &&
+                    count?._count &&
+                    count?._count.notification) ||
+                  0
+                }
+              />
+            );
+          })}
+        </ul>
+      </nav>
     </div>
   );
 };
