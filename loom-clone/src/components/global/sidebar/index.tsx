@@ -16,13 +16,17 @@ import { WorkSpaceProps, NotificationProps } from "@/types/index.types";
 import Image from "next/image";
 import React from "react";
 import Modal from "../modal";
-import { PlusCircle, WormIcon } from "lucide-react";
+import { Menu, PlusCircle, WormIcon } from "lucide-react";
 import Search from "../search";
 import { usePathname, useRouter } from "next/navigation";
 import { getNotifications } from "@/server-actions/user";
 import { MENU_ITEMS } from "@/constants";
 import SidebarItem from "./sidebarItem";
 import WorkspacePlaceholder from "./workspacePlaceholder";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import InfoBar from "../infoBar";
+import GlobalCard from "../globalCard";
 
 type Props = {
   activeWorkspaceId: string;
@@ -51,7 +55,7 @@ const Sidbar = ({ activeWorkspaceId }: Props) => {
   //menuItems
   const menuItems = MENU_ITEMS(activeWorkspaceId);
 
-  return (
+  const SidebarSection = (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-hidden border-r-2 border-r-white/15">
       <div className="bg-[#111111] p-4 flex gap-2 justify-center items-center mb-4 absolute top-0 left-0 right-0 ">
         <Image src="/opal-logo.svg" height={40} width={40} alt="logo" />
@@ -185,6 +189,33 @@ const Sidbar = ({ activeWorkspaceId }: Props) => {
             })}
         </ul>
       </nav>
+      <Separator className="w-4/5" />
+      {workspace.subscription?.plan === "FREE" && (
+        <GlobalCard
+          title="Upgrade to Pro"
+          description=" Unlock AI features like transcription, AI summary, and more."
+          footer={<Button className="text-sm w-full">Upgrade</Button>}
+        />
+      )}
+    </div>
+  );
+
+  return (
+    <div className="">
+      <InfoBar />
+      <div className="md:hidden fixed my-4">
+        <Sheet>
+          <SheetTrigger asChild className="ml-2">
+            <Button variant={"ghost"} className="mt-[2px]">
+              <Menu />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side={"left"} className="p-0 w-fit h-full">
+            {SidebarSection}
+          </SheetContent>
+        </Sheet>
+      </div>
+      <div className="md:block hidden h-full">{SidebarSection}</div>
     </div>
   );
 };
