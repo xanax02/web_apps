@@ -16,12 +16,13 @@ import { WorkSpaceProps, NotificationProps } from "@/types/index.types";
 import Image from "next/image";
 import React from "react";
 import Modal from "../modal";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, WormIcon } from "lucide-react";
 import Search from "../search";
 import { usePathname, useRouter } from "next/navigation";
 import { getNotifications } from "@/server-actions/user";
 import { MENU_ITEMS } from "@/constants";
 import SidebarItem from "./sidebarItem";
+import WorkspacePlaceholder from "./workspacePlaceholder";
 
 type Props = {
   activeWorkspaceId: string;
@@ -94,7 +95,8 @@ const Sidbar = ({ activeWorkspaceId }: Props) => {
               <span className="text-sm cursor-pointer flex items-center justify-center bg-neutral-800/90  hover:bg-neutral-800/60 w-full rounded-sm p-[5px] gap-2">
                 <PlusCircle
                   size={15}
-                  className="text-neutral-800/90 fill-neutral-500"
+                  className="text-neutral-800/90"
+                  fill="rgb(115, 115, 115)"
                 />
                 <span className="text-neutral-400 font-semibold text-xs">
                   Invite To Workspace
@@ -118,15 +120,69 @@ const Sidbar = ({ activeWorkspaceId }: Props) => {
                 title={item.title}
                 key={item.title}
                 selected={pathname === item.href}
-                notifications={
-                  (item.title === "Notifications" &&
-                    count?._count &&
-                    count?._count.notification) ||
-                  0
-                }
+                // notifications={
+                //   item.title === "Notifications" && count?._count
+                //     ? count?._count?.notification
+                //     : 0
+                // }               this needs to be fixed
               />
             );
           })}
+        </ul>
+      </nav>
+      <Separator className="w-4/5" />
+      <p className="w-full text-[#9D9D9D] font-bold mt-4 ">Workspaces</p>
+
+      {workspace?.workspace?.length === 1 &&
+        workspace?.members?.length === 0 && (
+          <div className="w-full mt-[-10px]">
+            <p className="text-[#3c3c3c] font-medium text-sm">
+              {workspace?.subscription?.plan === "FREE"
+                ? "Upgrade to create workspace"
+                : "No Workspaces"}
+            </p>
+          </div>
+        )}
+
+      {/* workspaces list display */}
+      <nav>
+        <ul>
+          {workspace?.workspace?.length > 0 &&
+            workspace?.workspace?.map((item) => {
+              return (
+                item.type !== "PERSONAL" && (
+                  <SidebarItem
+                    href={`/dashboard/${item.id}`}
+                    selected={pathname === `/dashboard/${item.id}`}
+                    title={item.name}
+                    notifications={0}
+                    key={item.name}
+                    icon={
+                      <WorkspacePlaceholder>
+                        {item.name.charAt(0)}
+                      </WorkspacePlaceholder>
+                    }
+                  />
+                )
+              );
+            })}
+          {workspace?.members?.length > 0 &&
+            workspace?.members?.map((item) => {
+              return (
+                <SidebarItem
+                  href={`dashboard/${item.WorkSpace.id}`}
+                  selected={pathname === `/dashboard/${item.WorkSpace.id}`}
+                  title={item.WorkSpace.name}
+                  notifications={0}
+                  key={item.WorkSpace.name}
+                  icon={
+                    <WorkspacePlaceholder>
+                      {item.WorkSpace.name.charAt(0)}
+                    </WorkspacePlaceholder>
+                  }
+                />
+              );
+            })}
         </ul>
       </nav>
     </div>

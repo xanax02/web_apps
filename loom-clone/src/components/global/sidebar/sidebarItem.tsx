@@ -5,7 +5,7 @@ import React from "react";
 interface SidebarItemProps {
   href: string;
   title: string;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
   selected: boolean;
   notifications?: number;
 }
