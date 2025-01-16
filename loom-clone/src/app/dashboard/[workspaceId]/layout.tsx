@@ -15,6 +15,7 @@ import {
   hydrate,
   dehydrate,
 } from "@tanstack/react-query";
+import GlobalHeader from "@/components/global/globalHeader";
 
 type Props = {
   params: { workspaceId: string };
@@ -63,7 +64,7 @@ const Layout = async ({ params, children }: Props) => {
         <Sidebar activeWorkspaceId={workspaceId} />
         <div className="w-full pt-28 p-6 overflow-y-scroll overflow-x-hidden">
           {/* <GlobalHeader workspace={hasAccess.data.workspace} /> */}
-          <h1>Header</h1>
+          <GlobalHeader workspace={hasAccess.data.workspace} />
           <div className="mt-4">{children}</div>
         </div>
       </div>
