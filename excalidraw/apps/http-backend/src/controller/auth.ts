@@ -11,9 +11,19 @@ export async function signupController(req: Request, res: Response) {
   }
 
   //dbcall
+  res.json({ userId: 123 });
 }
 
 export async function signinController(req: Request, res: Response) {
+  const data = SigninSchema.safeParse(req.body);
+
+  if (!data.success) {
+    res.status(401).json({ message: "Invalid inputs" });
+    return;
+  }
+
   const userId = "1";
   const token = jwt.sign(userId, JWT_SECRET);
+
+  res.json({ token });
 }
