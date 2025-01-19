@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { CreateUserSchema, SigninSchema } from "@repo/common/types";
+import { prismaClient } from "@repo/db/client";
 
 export async function signupController(req: Request, res: Response) {
   const data = CreateUserSchema.safeParse(req.body);
@@ -11,6 +12,13 @@ export async function signupController(req: Request, res: Response) {
   }
 
   //dbcall
+  // const user = await prismaClient.user.create({
+  //   data: {
+  //     email: req.body.email,
+  //     name: req.body.name,
+  //     passwrod: req.body.passwrod
+  //   }
+  // })
   res.json({ userId: 123 });
 }
 

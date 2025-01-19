@@ -4,6 +4,7 @@ import tokenMiddleware from "./middleware";
 // Routes import
 import authRoutes from "./router/auth";
 import { CreateRoomSchema } from "@repo/common/types";
+import { prismaClient } from "@repo/db/client";
 
 //app init
 const app = express();
