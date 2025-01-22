@@ -1,6 +1,14 @@
-import { WebSocketServer } from "ws";
+import WebSocket, { WebSocketServer } from "ws";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
+
+interface User {
+  ws: WebSocket;
+  rooms: string[];
+  userId: string;
+}
+
+const users: User[] = [];
 
 const wss = new WebSocketServer({ port: 8080 });
 
@@ -32,7 +40,44 @@ wss.on("connection", function connection(ws, request) {
     return;
   }
 
+  users.push({
+    userId,
+    rooms: [],
+    ws,
+  });
+
   ws.on("message", function message(data) {
-    ws.send("pong");
+    const parsedData = JSON.parse(data as string);
+
+    if (parsedData.type === "join_room") {
+      const user = users.find((u) => u.ws === ws);
+      if (!user) return;
+      user?.rooms?.push(parsedData.roomId);
+    }
+
+    //leave room
+    if (parsedData.type === "leave_room") {
+      const user = users.find((u) => u.ws === ws);
+      if (!user) return;
+      user.rooms = user?.rooms?.filter((room) => room !== parsedData?.room);
+    }
+
+    //send message
+    if (parsedData.type === "chat") {
+      const roomId = parsedData.roomId;
+      const message = parsedData.messasge;
+
+      users.forEach((user) => {
+        if (user.rooms.includes(roomId)) {
+          user.ws.send(
+            JSON.stringify({
+              type: "chat",
+              message,
+              roomId,
+            })
+          );
+        }
+      });
+    }
   });
 });
