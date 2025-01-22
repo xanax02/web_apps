@@ -7,6 +7,7 @@ import {
 import { prismaClient } from "@repo/db/client";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
+import { tokenValidatorMiddlware } from "./middleware";
 
 const app = express();
 app.use(express.json());
@@ -72,6 +73,23 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-app.get("/room", (req, res) => {});
+app.get("/room", tokenValidatorMiddlware, async (req, res) => {
+  const parsedData = CreateRoomSchema.safeParse(req.body);
+  if (!parsedData.success) {
+    res.status(403).json({ message: "Incorrect inputs" });
+    return;
+  }
+
+  const userId = req.userId;
+
+  const room = await prismaClient.room.create({
+    data: {
+      slug: parsedData?.data?.name,
+      adminId: userId,
+    },
+  });
+
+  res.status(201).json({ room });
+});
 
 app.listen(8000, () => console.log("http server running at port 8000"));
