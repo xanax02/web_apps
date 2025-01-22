@@ -73,23 +73,28 @@ app.post("/signin", async (req, res) => {
   }
 });
 
-app.get("/room", tokenValidatorMiddlware, async (req, res) => {
+app.post("/room", tokenValidatorMiddlware, async (req, res) => {
   const parsedData = CreateRoomSchema.safeParse(req.body);
   if (!parsedData.success) {
     res.status(403).json({ message: "Incorrect inputs" });
     return;
   }
 
+  //@ts-ignore
   const userId = req.userId;
 
-  const room = await prismaClient.room.create({
-    data: {
-      slug: parsedData?.data?.name,
-      adminId: userId,
-    },
-  });
+  try {
+    const room = await prismaClient.room.create({
+      data: {
+        slug: parsedData?.data?.name,
+        adminId: userId,
+      },
+    });
 
-  res.status(201).json({ room });
+    res.status(201).json({ room });
+  } catch (e) {
+    res.send({ message: "room already exists" });
+  }
 });
 
 app.listen(8000, () => console.log("http server running at port 8000"));
