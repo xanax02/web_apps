@@ -9,7 +9,7 @@ export const onAuthenticateUser = async () => {
 
     if (!user) return { status: 403 };
 
-    const userExist = await client.user.findUnique({
+    const userExist = await client?.user.findUnique({
       where: {
         clerkid: user.id,
       },
@@ -28,7 +28,7 @@ export const onAuthenticateUser = async () => {
       return { status: 200, user: userExist };
     }
 
-    const newUser = await client.user.create({
+    const newUser = await client?.user.create({
       data: {
         clerkid: user.id,
         email: user.emailAddresses[0].emailAddress,

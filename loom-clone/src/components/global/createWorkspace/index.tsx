@@ -5,6 +5,7 @@ import { getWorkSpaces } from "@/server-actions/workspace";
 import React from "react";
 import Modal from "../modal";
 import { Button } from "@/components/ui/button";
+import FolderPlusDuotine from "@/components/icons/folder-plus-duotone";
 
 const CreateWorkspace = () => {
   const { data } = useQueryData(["user-workspaces"], getWorkSpaces);
@@ -29,7 +30,7 @@ const CreateWorkspace = () => {
       description=" Workspaces helps you collaborate with team members. You are assigned a default personal workspace where you can share videos in private with yourself."
       trigger={
         <Button className="bg-[#1D1D1D] text-[#707070] flex items-center gap-2 py-6 px-4 rounded-2xl">
-          {/* <FolderPlusDuotine /> */}
+          <FolderPlusDuotine />
           Create Workspace
         </Button>
       }
