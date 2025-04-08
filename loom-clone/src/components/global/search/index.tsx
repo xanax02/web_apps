@@ -6,6 +6,7 @@ import { useSearch } from "@/hooks/useSearch";
 import { User } from "lucide-react";
 import React from "react";
 import Loader from "../loader";
+import { useMutationData } from "@/hooks/useMutationData";
 
 const Search = ({ workspaceId }: { workspaceId: string }) => {
   const { query, onSearchQuery, isFetching, onUsers } = useSearch(
@@ -13,7 +14,14 @@ const Search = ({ workspaceId }: { workspaceId: string }) => {
     "USERS"
   );
 
-  //mutation logic
+  //mutation
+  //sending invitation
+  // const {mutate, isPending} = useMutationData(
+  //   ['invite-members'],
+  //   (data: {recieverId: String; emai;:string}) => {
+
+  //   }
+  // )
 
   return (
     <div className="flex flex-col gap-y-5">
