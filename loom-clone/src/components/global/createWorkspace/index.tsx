@@ -6,6 +6,7 @@ import React from "react";
 import Modal from "../modal";
 import { Button } from "@/components/ui/button";
 import FolderPlusDuotine from "@/components/icons/folder-plus-duotone";
+import WorkspaceFrom from "@/components/forms/workspace-form";
 
 const CreateWorkspace = () => {
   const { data } = useQueryData(["user-workspaces"], getWorkSpaces);
@@ -35,7 +36,7 @@ const CreateWorkspace = () => {
         </Button>
       }
     >
-      WORK IN PROGRESS
+      <WorkspaceFrom />
     </Modal>
   );
 };
