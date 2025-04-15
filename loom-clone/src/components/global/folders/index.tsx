@@ -1,5 +1,7 @@
 import FolderDuotone from "@/components/icons/folder-duotone"
+import { cn } from "@/lib/utils"
 import { ArrowRight } from "lucide-react"
+import Folder from "./folder"
 
 const Folders = ({workspaceId}: {workspaceId: any}) => {
     //getfolders
@@ -15,6 +17,9 @@ const Folders = ({workspaceId}: {workspaceId: any}) => {
                 <ArrowRight color="#707070" />
             </div>
         </div>
+        <section className={cn('flex items-center gap-4 overflow-x-auto w-full')} >
+            <Folder id="12445" name="Folder Title" />
+        </section>
     </div>
 }
 
