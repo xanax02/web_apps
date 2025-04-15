@@ -1,9 +1,13 @@
 import CreateWorkspace from "@/components/global/createWorkspace";
 import { Tabs, TabsList } from "@/components/ui/tabs";
 import { TabsTrigger } from "@radix-ui/react-tabs";
+import { useParams } from "next/navigation";
 import React from "react";
 
 const Page = () => {
+
+  const params = useParams();
+
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
@@ -24,6 +28,7 @@ const Page = () => {
           </TabsList>
           <div className="flex gap-x-3">
             <CreateWorkspace />
+            <CreateFolders workspaceId={params.workspaceId} />
           </div>
         </div>
       </Tabs>
