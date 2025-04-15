@@ -5,7 +5,7 @@ const WorkspaceFrom = () => {
     const {errors, isPending, onFormSubmit, register} = useCreateWorkspace()
 
     return <form onSubmit={onFormSubmit} className="flex flex-col gap-y-3">
-
+        <h1>This is workspace folder</h1>
     </form>
 }
 

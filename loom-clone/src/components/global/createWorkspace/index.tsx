@@ -18,6 +18,7 @@ const CreateWorkspace = () => {
         subscription: {
           plan: "PRO" | "FREE";
         } | null;
+
       };
     }) ?? {};
 
