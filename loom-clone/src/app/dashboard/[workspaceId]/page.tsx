@@ -1,12 +1,13 @@
+import CreateFolders from "@/components/global/createFolders";
 import CreateWorkspace from "@/components/global/createWorkspace";
+import Folders from "@/components/global/folders";
 import { Tabs, TabsList } from "@/components/ui/tabs";
-import { TabsTrigger } from "@radix-ui/react-tabs";
-import { useParams } from "next/navigation";
+import { TabsContent, TabsTrigger } from "@radix-ui/react-tabs";
 import React from "react";
 
-const Page = () => {
+const Page = ({params}: {params: any}) => {
 
-  const params = useParams();
+  // const params = useParams();
 
   return (
     <div>
@@ -28,9 +29,14 @@ const Page = () => {
           </TabsList>
           <div className="flex gap-x-3">
             <CreateWorkspace />
-            <CreateFolders workspaceId={params.workspaceId} />
+            <CreateFolders workspaceId={params.workspaceId}  />
           </div>
         </div>
+        <section className="py-9">
+          <TabsContent value="videos">
+            <Folders workspaceId={params.workspaceId} />
+          </TabsContent>
+        </section>
       </Tabs>
     </div>
   );
