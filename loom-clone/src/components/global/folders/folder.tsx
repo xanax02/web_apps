@@ -59,12 +59,12 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
     Renamed();
   };
 
-
   return (
     <div
       onClick={handleFolderClick}
       ref={folderCardRef}
       className={cn(
+        optimistic && "opacity-50",
         "flex hover:bg-neutral-800 cursor-pointer transition duration-150 items-center gap-2 justify-between min-w-[250px] py-4 px-4 rounded-lg border-[1px] mt-4"
       )}
     >
@@ -72,7 +72,9 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
         <div className="flex flex-col gap-[1px]">
           {onRename ? (
             <Input
-              onBlur={(e: React.FocusEvent<HTMLInputElement>) => updateFolderName(e)}
+              onBlur={(e: React.FocusEvent<HTMLInputElement>) =>
+                updateFolderName(e)
+              }
               onClick={(e) => e.stopPropagation()}
               autoFocus
               placeholder={name}
