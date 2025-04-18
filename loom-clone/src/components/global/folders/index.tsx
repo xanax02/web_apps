@@ -7,14 +7,34 @@ import { useQueryData } from "@/hooks/useQueryData"
 import { getWorkspaceFolders } from "@/server-actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
 
+export type FolderProps = {
+    status: number
+    data: ({
+        _count: {
+            videos: number
+        }
+    } & {
+        id: string
+        name: string
+        createdAt: Date
+        workspaceId: string | null
+    })[]
+}
+
 const Folders = ({workspaceId}: {workspaceId: any}) => {
     //getfolders
-    const {data, isFetching} = useQueryData(
+    const {data, isFetched} = useQueryData(
         ['workspace-folders'],
         () => getWorkspaceFolders(workspaceId)
     )
 
     const {latestVaraibles} = useMutationDataState(['create-folder'])
+
+    const {status, data: folders} = data as FolderProps
+
+    if(isFetched && folders) {
+
+    }
     //optimistic variable
     return (
       <div className="felx flex-col gap-4">
