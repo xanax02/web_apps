@@ -4,7 +4,7 @@ import Loader from "../loader";
 import { cn } from "@/lib/utils";
 import FolderDuotone from "@/components/icons/folder-duotone";
 import { useRef, useState } from "react";
-import { useMutationData } from "@/hooks/useMutationData";
+import { useMutationData, useMutationDataState } from "@/hooks/useMutationData";
 import { renameFolders } from "@/server-actions/workspace";
 import { Input } from "@/components/ui/input";
 
@@ -35,6 +35,8 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
     Renamed
   );
 
+  const { latestVaraibles } = useMutationDataState(["rename-folders"]);
+
   const handleFolderClick = () => {
     router.push(`${pathname}/folder/${id}`);
   };
@@ -48,7 +50,7 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
     if (e?.key && e.key == "Enter") {
       if (inputRef.current?.value) {
         //@ts-ignore
-        mutate({ name: inputRef.current.value });
+        mutate({ name: inputRef.current.value, id });
       } else {
         Renamed();
       }
@@ -87,7 +89,11 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
               onClick={(e) => e.stopPropagation()}
               onDoubleClick={(e) => handleNameDoubleClick(e)}
             >
-              {name}
+              {latestVaraibles &&
+              latestVaraibles.status === "pending" &&
+              latestVaraibles.variables.id === id
+                ? latestVaraibles.variables.name
+                : name}
             </p>
           )}
           <span className="text-sm text-neutral-500">{count || 0} videos</span>

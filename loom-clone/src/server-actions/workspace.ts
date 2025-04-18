@@ -240,3 +240,28 @@ export const createFolder = async (workspaceId: string) => {
     return { status: 500, message: err };
   }
 };
+
+export const getFolderInfo = async (folderId: string) => {
+  try {
+    const folder = await client.folder.findUnique({
+      where: {
+        id: folderId,
+      },
+      select: {
+        name: true,
+        _count: {
+          select: {
+            videos: true,
+          },
+        },
+      },
+    });
+    if (folder) {
+      return { status: 200, data: folder };
+    } else {
+      return { status: 400, data: null };
+    }
+  } catch (err) {
+    return { status: 500, data: err };
+  }
+};
