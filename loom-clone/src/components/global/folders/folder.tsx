@@ -30,7 +30,7 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
   const { mutate, isPending } = useMutationData(
     ["rename-folders"],
     // @ts-ignore
-    (data: { name: string }) => renameFolders(id, name),
+    (data: { name: string }) => renameFolders(id, data.name),
     "workspace-folders",
     Renamed
   );
@@ -44,19 +44,15 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
     Rename();
   };
 
-  const updateFolderName = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (inputRef.current && folderCardRef.current) {
-      if (
-        !inputRef.current.contains(e.target as Node | null) &&
-        !folderCardRef.current.contains(e.target as Node | null)
-      ) {
-        if (inputRef.current.value) {
-          // @ts-ignore
-          mutate({ name: inputRef.current.value });
-        } else Renamed();
+  const updateFolderName = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e?.key && e.key == "Enter") {
+      if (inputRef.current?.value) {
+        //@ts-ignore
+        mutate({ name: inputRef.current.value });
+      } else {
+        Renamed();
       }
     }
-    Renamed();
   };
 
   return (
@@ -72,7 +68,8 @@ const Folder = ({ name, id, optimistic, count }: Props) => {
         <div className="flex flex-col gap-[1px]">
           {onRename ? (
             <Input
-              onBlur={(e: React.FocusEvent<HTMLInputElement>) =>
+              onBlur={(e: React.FocusEvent<HTMLInputElement>) => Renamed()}
+              onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
                 updateFolderName(e)
               }
               onClick={(e) => e.stopPropagation()}

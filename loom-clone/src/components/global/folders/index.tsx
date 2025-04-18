@@ -36,7 +36,7 @@ const Folders = ({ workspaceId }: { workspaceId: any }) => {
   // }
   //optimistic variable
   return (
-    <div className="felx flex-col gap-4">
+    <div suppressHydrationWarning className="felx flex-col gap-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <FolderDuotone />
@@ -76,7 +76,6 @@ const Folders = ({ workspaceId }: { workspaceId: any }) => {
             })}
           </>
         )}
-        <Folder id="12445" name="Folder Title" />
       </section>
     </div>
   );
