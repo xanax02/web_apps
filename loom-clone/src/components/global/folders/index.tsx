@@ -7,7 +7,7 @@ import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/server-actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
 
-export type FolderProps = {
+export type FoldersProp = {
   status: number;
   data: ({
     _count: {
@@ -29,7 +29,7 @@ const Folders = ({ workspaceId }: { workspaceId: any }) => {
 
   const { latestVaraibles } = useMutationDataState(["create-folder"]);
 
-  const { status, data: folders } = data as FolderProps;
+  const { status, data: folders } = data as FoldersProp;
 
   //Add redux state
   // if (isFetched && folders) {
