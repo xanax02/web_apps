@@ -1,10 +1,20 @@
+'use client';
 import FolderDuotone from "@/components/icons/folder-duotone"
 import { cn } from "@/lib/utils"
 import { ArrowRight } from "lucide-react"
 import Folder from "./folder"
+import { useQueryData } from "@/hooks/useQueryData"
+import { getWorkspaceFolders } from "@/server-actions/workspace";
+import { useMutationDataState } from "@/hooks/useMutationData";
 
 const Folders = ({workspaceId}: {workspaceId: any}) => {
     //getfolders
+    const {data, isFetching} = useQueryData(
+        ['workspace-folders'],
+        () => getWorkspaceFolders(workspaceId)
+    )
+
+    const {latestVaraibles} = useMutationDataState(['create-folder'])
     //optimistic variable
     return (
       <div className="felx flex-col gap-4">
