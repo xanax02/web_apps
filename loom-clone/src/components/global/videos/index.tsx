@@ -5,11 +5,29 @@ import { useQueryData } from "@/hooks/useQueryData";
 import { cn } from "@/lib/utils";
 import { getAllUserVideos } from "@/server-actions/workspace";
 import { VideosProps } from "@/types/index.types";
+import VideoCard from "./videoCard";
 
 type Props = {
   folderId: string;
   videosKey: string;
   workspaceId: string;
+};
+
+const video = {
+  User: {
+    firstname: "John",
+    lastName: "Doe",
+    image: "https://example.com/profile-image.jpg",
+  },
+  id: "video123",
+  processing: false,
+  Folder: {
+    id: "folder456",
+    name: "Marketing Videos",
+  },
+  createdAt: new Date("2023-05-15T10:30:00Z"),
+  title: "Product Demo: New Features",
+  source: "https://example.com/videos/product-demo.mp4",
 };
 
 export const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
@@ -39,6 +57,7 @@ export const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
         ) : (
           <p className="text[#BdBdBd]">No Videos in workspace</p>
         )} */}
+        <VideoCard workspaceId={workspaceId} {...video} />
       </section>
     </div>
   );
