@@ -1,3 +1,4 @@
+import ChangeVideoLocation from "@/components/forms/change-video-location";
 import Loader from "../loader";
 import CardMenu from "./videoCardMenu";
 
@@ -34,6 +35,7 @@ const VideoCard = (props: Props) => {
           />
         </div>
       </div>
+      <ChangeVideoLocation />
     </Loader>
   );
 };
