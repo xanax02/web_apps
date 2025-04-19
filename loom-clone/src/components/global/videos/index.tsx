@@ -49,15 +49,16 @@ export const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
         className={cn(
           videoStatus !== 200
             ? "p-5"
-            : "grig grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+            : "grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
         )}
       >
-        {/* {videoStatus === 200 ? (
-          videos.map((video) => <h1>hello</h1>)
+        {videoStatus === 200 ? (
+          videos.map((video) => (
+            <VideoCard key={video.id} workspaceId={workspaceId} {...video} />
+          ))
         ) : (
           <p className="text[#BdBdBd]">No Videos in workspace</p>
-        )} */}
-        <VideoCard workspaceId={workspaceId} {...video} />
+        )}
       </section>
     </div>
   );

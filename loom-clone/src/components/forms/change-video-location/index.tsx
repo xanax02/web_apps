@@ -1,5 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { useMoveVideos } from "@/hooks/useFolders";
 
 type Props = {
   currentFolder?: string;
@@ -14,11 +15,25 @@ const ChangeVideoLocation = ({
   currentWorkspace,
   videoId,
 }: Props) => {
+  const {
+    register,
+    errors,
+    folders,
+    isFetching,
+    isFolders,
+    isPending,
+    onFormSubmit,
+    workspaces,
+  } = useMoveVideos(videoId, currentWorkspace!);
+
+  const folder = folders.find((f) => f.id === currentFolder);
+  const workspace = workspaces.find((f) => f.id === currentWorkspace);
+
   return (
     <form className="flex flex-col gap-y-5">
       <div className="border-[1px] rounded-xl p-5">
         <h2 className="text-xs mb-5 text-[#a4a4a4]">Current</h2>
-        <p className="text-[#a4a4a4]">Worspace</p>
+        {workspace && <p className="text-[#a4a4a4]">{workspace.name}</p>}
         <p className="text-[#a4a4a4] text-xs">This video has no folder.</p>
       </div>
       <Separator orientation="horizontal" />
