@@ -34,7 +34,10 @@ const ChangeVideoLocation = ({
       <div className="border-[1px] rounded-xl p-5">
         <h2 className="text-xs mb-5 text-[#a4a4a4]">Current</h2>
         {workspace && <p className="text-[#a4a4a4]">{workspace.name}</p>}
-        <p className="text-[#a4a4a4] text-xs">This video has no folder.</p>
+        {currentFolderName && <p>{currentFolderName}</p>}
+        {!currentFolderName && (
+          <p className="text-[#a4a4a4] text-xs">This video has no folder.</p>
+        )}
       </div>
       <Separator orientation="horizontal" />
       <div className="flex flex-col gap-y-5 p-5 border-[1px] rounded-xl">

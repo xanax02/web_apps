@@ -1,5 +1,5 @@
+import { Links } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { Link } from "lucide-react";
 import { toast } from "sonner";
 
 type Props = {
@@ -28,7 +28,7 @@ const CopyLink = ({ videoId, className, variant }: Props) => {
 
   return (
     <Button variant={variant} className={className} onClick={onCopyClipboard}>
-      <Link size={20} className="text-[#a4a4a4]" />
+      <Links />
     </Button>
   );
 };
