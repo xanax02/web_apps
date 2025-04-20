@@ -6,6 +6,8 @@ import Folder from "./folder";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/server-actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
+import { useDispatch } from "react-redux";
+import { FOLDERS } from "@/redux/slices/folders";
 
 export type FoldersProp = {
   status: number;
@@ -22,6 +24,7 @@ export type FoldersProp = {
 };
 
 const Folders = ({ workspaceId }: { workspaceId: any }) => {
+  const dispatch = useDispatch();
   //getfolders
   const { data, isFetched } = useQueryData(["workspace-folders"], () =>
     getWorkspaceFolders(workspaceId)
@@ -30,6 +33,10 @@ const Folders = ({ workspaceId }: { workspaceId: any }) => {
   const { latestVaraibles } = useMutationDataState(["create-folder"]);
 
   const { status, data: folders } = data as FoldersProp;
+
+  if (isFetched && folders) {
+    dispatch(FOLDERS({ folders: folders }));
+  }
 
   //Add redux state
   // if (isFetched && folders) {
