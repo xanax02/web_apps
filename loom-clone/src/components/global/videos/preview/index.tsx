@@ -11,6 +11,7 @@ import { Download } from "lucide-react";
 import TabMenu from "../../tabs";
 import AiTools from "../../aiTools";
 import VideoTranscript from "../../videoTranscript";
+import { TabsContent } from "@radix-ui/react-tabs";
 
 type Props = {
   videoId: string;
@@ -111,6 +112,9 @@ const VideoPreview = ({ videoId }: Props) => {
               plan={video.User?.subscription?.plan as "FREE" | "PRO"}
             />
             <VideoTranscript transcript={video.description as string} />
+            <TabsContent value="Activity">
+              Make changes to your account here.
+            </TabsContent>
           </TabMenu>
         </div>
       </div>
