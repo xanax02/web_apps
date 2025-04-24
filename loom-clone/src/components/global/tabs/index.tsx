@@ -20,6 +20,7 @@ const TabMenu = ({ children, defaultValue, triggers }: Props) => {
           </TabsTrigger>
         ))}
       </TabsList>
+      {children}
     </Tabs>
   );
 };
