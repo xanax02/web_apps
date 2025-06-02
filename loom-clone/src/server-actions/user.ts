@@ -24,9 +24,11 @@ export const onAuthenticateUser = async () => {
       },
     });
 
+
     if (userExist) {
       return { status: 200, user: userExist };
     }
+
 
     const newUser = await client?.user.create({
       data: {
@@ -63,11 +65,13 @@ export const onAuthenticateUser = async () => {
         },
       },
     });
+
     if (newUser) {
       return { status: 201, user: newUser };
     }
     return { status: 400 };
   } catch (err) {
+    console.log("ERROR", err);
     return { status: 500, message: err };
   }
 };
