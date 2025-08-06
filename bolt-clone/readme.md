@@ -1,0 +1,1 @@
+1. First request to template to get the artifacts for node, vite or next.
