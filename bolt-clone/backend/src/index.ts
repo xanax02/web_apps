@@ -1,8 +1,30 @@
 require("dotenv").config();
+import express from "express";
 
 import Anthropic from "@anthropic-ai/sdk";
+import { MAX_TOKENS } from "./constants";
+import { TextBlock } from "@anthropic-ai/sdk/resources/messages";
 
 const anthropic = new Anthropic();
+const app = express();
+app.use(express.json());
+
+app.post('/template', async(req, res) => {
+  const prompt = req.body.prompt;
+
+  const response = await anthropic.messages.create({
+    messages: [{role: "user", content: prompt}],
+    model: "claude-3-haiku-20240307",
+    max_tokens: MAX_TOKENS,
+    system: "Return either node or react based on what do you think this project should be. Only return a single word either 'node' or 'react'. Do not return anything extra.",
+    temperature: 0
+  })
+
+  const appTypeFromLLM = (response.content[0] as TextBlock).text;
+  if(appTypeFromLLM !== 'node' &&  appTypeFromLLM !== 'react')
+})
+
+app.listen(3000, () => console.log("server running at port 3000"));
 
 async function main() {
     const msg = anthropic.messages.stream({

@@ -52,3 +52,5 @@ export const allowedHTMLElements = [
     'ul',
     'var',
 ];
+
+export const MAX_TOKENS = 200
