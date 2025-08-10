@@ -31,12 +31,23 @@ app.post("/template", async (req, res) => {
 
     if (appTypeFromLLM === "react") {
       res.json({
-        prompts: [BASE_PROMPT, reactBasePrompt],
+        prompts: [
+          // will be passed to the LLM
+          BASE_PROMPT,
+          `Here is an artifact that contains all files of the project visible to you. \nConsider the contents of ALL files in the project.\n\n
+          ${reactBasePrompt}\n\nHere is a list of files that exist on the file system but are not being shown to you:\n\n - .gitignore\n - package-lock.json\n`,
+        ],
+        uiPrompts: [reactBasePrompt], //parsed by UI to show files, and stuff
       });
       return;
     } else if (appTypeFromLLM === "node") {
       res.json({
-        prompts: [BASE_PROMPT, nodeBasePrompt],
+        prompts: [
+          // will be passed to the LLM
+          `Here is an artifact that contains all files of the project visible to you. \nConsider the contents of ALL files in the project.\n\n
+          ${nodeBasePrompt}\n\nHere is a list of files that exist on the file system but are not being shown to you:\n\n - .gitignore\n - package-lock.json\n`,
+        ],
+        uiPrompts: [nodeBasePrompt], //parsed by UI to show files, and stuff
       });
       return;
     }
